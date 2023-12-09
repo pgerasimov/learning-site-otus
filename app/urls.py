@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import IndexView, CourseDetailView, CourseEditView, CourseDeleteView, CourseCreateView
+from .views import IndexView, CourseDetailView, CourseEditView, CourseDeleteView, CourseCreateView, CustomLoginView, \
+    RegisterView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -7,6 +8,9 @@ urlpatterns = [
     path('edit_course/<int:pk>/', CourseEditView.as_view(), name='edit_course'),
     path('del_course/<int:pk>/', CourseDeleteView.as_view(), name='del_course'),
     path('create_course/', CourseCreateView.as_view(), name='create_course'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+
 
 ]
 

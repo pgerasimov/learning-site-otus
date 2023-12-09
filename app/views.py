@@ -1,5 +1,10 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 from django.views import View
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import CreateView
+
 from .models import Course
 from django.contrib import messages
 from .forms import CourseForm
@@ -69,3 +74,14 @@ class CourseCreateView(View):
             messages.success(request, 'Курс успешно добавлен')
             return redirect('index')
         return render(request, self.template_name, {'form': form})
+
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    success_url = reverse_lazy('/')
+
+
+class RegisterView(CreateView):
+    template_name = 'registration/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
