@@ -4,9 +4,9 @@ from django.views import View
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView
+from django.contrib import messages
 
 from .models import Course
-from django.contrib import messages
 from .forms import CourseForm
 
 
@@ -28,7 +28,7 @@ class CourseDetailView(View):
 
 
 class CourseEditView(View):
-    template_name = 'app/edit_course.html'  # Создайте шаблон для страницы редактирования
+    template_name = 'app/edit_course.html'
 
     def get(self, request, pk):
         course = get_object_or_404(Course, pk=pk)
@@ -57,7 +57,7 @@ class CourseDeleteView(View):
         course = get_object_or_404(Course, pk=pk)
         course.delete()
         messages.success(request, 'Курс успешно удален')
-        return redirect('/')
+        return redirect('index')
 
 
 class CourseCreateView(View):
@@ -82,6 +82,11 @@ class CustomLoginView(LoginView):
 
 
 class RegisterView(CreateView):
-    template_name = 'registration/register.html'
+    template_name = 'registration/registration.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Регистрация прошла успешно. Теперь вы можете войти.')
+        return response

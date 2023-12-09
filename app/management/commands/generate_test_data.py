@@ -27,7 +27,6 @@ class Command(BaseCommand):
                 title=fake.word(),
                 description=fake.text(),
                 start_date=fake.date_this_year(),
-                end_date=fake.date_this_year(),
                 summary=fake.text(),
                 duration=random.randint(1, 10),
                 image='https://via.placeholder.com/300',
