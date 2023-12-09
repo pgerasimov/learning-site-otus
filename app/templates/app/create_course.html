@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+      <div class="container mt-4">
+
+        <form method="post" action="{% url 'create_course' %}">
+            {% csrf_token %}
+            <h1>Создание нового курса</h1>
+
+            <div class="mb-3">
+                <label for="course_image" class="form-label">Изображение курса:</label>
+                <input type="file" class="form-control" id="course_image" name="course_image" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label for="course_name" class="form-label">Название курса:</label>
+                <input type="text" class="form-control" id="course_name" name="course_name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="course_description" class="form-label">Описание курса:</label>
+                <textarea class="form-control" id="course_description" name="course_description" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="instructor_name" class="form-label">Имя преподавателя:</label>
+                <input type="text" class="form-control" id="instructor_name" name="instructor_name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="duration" class="form-label">Длительность:</label>
+                <input type="text" class="form-control" id="duration" name="duration" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Дата старта:</label>
+                <input type="text" class="form-control" id="start_date" name="start_date" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="photo_url" class="form-label">URL фото:</label>
+                <input type="text" class="form-control" id="photo_url" name="photo_url" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="course_content" class="form-label">Содержание курса:</label>
+                <textarea class="form-control" id="course_content" name="course_content" rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Создать курс</button>
+        </form>
+
+    </div>
+
+
+{% endblock %}

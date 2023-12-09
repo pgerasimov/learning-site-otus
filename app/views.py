@@ -9,3 +9,10 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         courses = Course.objects.all()
         return render(request, self.template_name, {'courses': courses})
+
+
+class CourseView(View):
+    template_name = 'app/course.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
