@@ -1,50 +1,12 @@
 {% extends 'app/base.html' %}
 {% block content %}
-
-   <div class="container mt-4">
-
-        <form method="post" action="{% url 'edit_course' course.id %}">
+    <div class="container mt-4">
+        <h1>Редактирование курса "{{ course.title }}"</h1>
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h1>Редактирование курса</h1>
-
-            <div class="mb-3">
-                <label for="course_name" class="form-label">Название курса:</label>
-                <input type="text" class="form-control" id="course_name" name="course_name" value="{{ course.title }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="course_description" class="form-label">Описание курса:</label>
-                <textarea class="form-control" id="course_description" name="course_description" rows="4" required>{{ course.summary }}</textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="instructor_name" class="form-label">Имя преподавателя:</label>
-                <input type="text" class="form-control" id="instructor_name" name="instructor_name" value="{{ course.teachers.all.0.user }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="duration" class="form-label">Длительность:</label>
-                <input type="text" class="form-control" id="duration" name="duration" value="{{ course.duration }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="start_date" class="form-label">Дата старта:</label>
-                <input type="text" class="form-control" id="start_date" name="start_date" value="{{ course.start_date }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="photo_url" class="form-label">URL фото:</label>
-                <input type="text" class="form-control" id="photo_url" name="photo_url" value="{{ course.image }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="course_content" class="form-label">Содержание курса:</label>
-                <textarea class="form-control" id="course_content" name="course_content" rows="6" required>{{ course.summary }}</textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'course_detail' pk=course.id %}" class="btn btn-secondary">Отмена</a>
         </form>
-
     </div>
-
 {% endblock %}

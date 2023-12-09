@@ -6,11 +6,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}">
     <title>{% block title %}Цифровые навыки{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+{% if messages %}
+   <ul class="messages no-bullet">
+       {% for message in messages %}
+           <li{% if message.tags %} class="{% if message.tags == 'success' %}alert alert-success{% elif message.tags == 'error' %}alert alert-danger{% elif message.tags == 'warning' %}alert alert-warning{% elif message.tags == 'info' %}alert alert-info{% endif %}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+   </ul>
+{% endif %}
 
     <!-- Навигационное меню -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
