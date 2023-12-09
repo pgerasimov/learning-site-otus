@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+
+    <div class="container mt-4">
+
+        <h1>Название курса</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/400" class="img-fluid" alt="Изображение курса">
+            </div>
+            <div class="col-md-6">
+                <h2>Описание курса</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel metus et est consequat semper.
+                    Vivamus in posuere libero. In hac habitasse platea dictumst.</p>
+                <ul>
+                    <li><strong>Преподаватель:</strong> Имя Преподавателя</li>
+                    <li><strong>Длительность:</strong> 10 недель</li>
+                    <li><strong>Старт:</strong> 01 января 2024</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Записаться на курс</a>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h2>Содержание курса</h2>
+            <p>Здесь может быть описание разделов, тем, которые будут рассмотрены в ходе обучения.</p>
+            <ul>
+                <li>Тема 1: Введение в цифровые навыки</li>
+                <li>Тема 2: Основы программирования</li>
+                <li>Тема 3: Веб-разработка</li>
+            </ul>
+        </div>
+
+    </div>
+
+{% endblock %}

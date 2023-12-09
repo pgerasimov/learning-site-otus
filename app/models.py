@@ -32,7 +32,7 @@ class Course(models.Model):
 
 class Schedule(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    day_of_week = models.CharField(max_length=10)  # например, 'Monday'
+    day_of_week = models.CharField(max_length=10)
     start_time = models.TimeField()
     end_time = models.TimeField()
 

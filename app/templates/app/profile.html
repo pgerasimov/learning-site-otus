@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+       <!-- Личный кабинет (режим просмотра) -->
+       <div class="container mt-4">
+        <h2>Личный кабинет</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="https://via.placeholder.com/300" class="img-fluid" alt="Фото профиля">
+            </div>
+            <div class="col-md-8">
+                <p><strong>ФИО:</strong> Иванов Иван Иванович</p>
+                <p><strong>Email адрес:</strong> ivanov@example.com</p>
+                <p><strong>Возраст:</strong> 30 лет</p>
+                <p><strong>Стаж работы:</strong> 5 лет</p>
+                <p><strong>Место работы:</strong> IT Company</p>
+                <h3>Активные курсы:</h3>
+                <ul>
+                    <li>Начальные курсы по программированию</li>
+                    <li>Эффективная командная работа</li>
+                    <!-- Добавьте остальные курсы -->
+                </ul>
+            </div>
+        </div>
+        <a href="profile_edit.html" class="btn btn-primary">Редактировать</a>
+    </div>
+
+{% endblock %}
