@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Course
 
 
@@ -11,8 +11,10 @@ class IndexView(View):
         return render(request, self.template_name, {'courses': courses})
 
 
-class CourseView(View):
-    template_name = 'app/course.html'
+class CourseDetailView(View):
+    template_name = 'app/course_detail.html'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {})
+    def get(self, request, pk):
+        course = get_object_or_404(Course, pk=pk)
+        context = {'course': course}
+        return render(request, self.template_name, context)

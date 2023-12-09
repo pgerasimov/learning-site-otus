@@ -25,6 +25,9 @@ class Course(models.Model):
     students = models.ManyToManyField(Student, related_name='courses_enrolled')
     start_date = models.DateField()
     end_date = models.DateField()
+    summary = models.TextField(blank=True, null=True)
+    duration = models.IntegerField(default=0)
+    image = models.URLField(default='https://via.placeholder.com/300')
 
     def __str__(self):
         return self.title

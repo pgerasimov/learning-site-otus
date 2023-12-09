@@ -13,130 +13,28 @@
                 проектами. Мы создали гибкую систему обучения, которая подходит как для начинающих, так и для опытных
                 специалистов. Наши курсы предоставляют возможность получить практические навыки, необходимые для успешной
                 карьеры в современном мире информационных технологий.</p>
-        </div>
+ </div>
     </div>
 
     <!-- Секция с курсами -->
     <div class="container mt-4">
         <h2>Курсы по программированию и разработке ПО</h2>
         <div class="row">
-            <!-- Карточка курса -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Начальные курсы по программированию</h5>
-                        <p class="card-text">
-                            {% for course in courses %}
-                                {{ course }}
-                            {% endfor %}
-                        </p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
+            {% for course in courses %}
+                <!-- Карточка курса -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+            <img src="{{ course.image }}" class="card-img-top" alt="Изображение курса">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <p class="card-text">
+                                {{ course.description }}
+                            </p>
+                            <a href="{% url 'course_detail' pk=course.id %}" class="btn btn-primary">Подробнее</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Карточка курса -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Продвинутые темы в программировании</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Карточка курса -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Веб-разработка и мобильная разработка</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Секция с курсами по обработке данных и исследованию данных -->
-    <div class="container mt-4">
-        <h2>Курсы по обработке данных и исследованию данных</h2>
-        <div class="row">
-            <!-- Курс 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Основы статистики и анализа данных</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Курс 2 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Использование инструментов для визуализации данных</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Курс 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Машинное обучение и анализ больших данных</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Секция с курсами по навыкам коммуникации и управлению проектами -->
-    <div class="container mt-4">
-        <h2>Курсы по навыкам коммуникации и управлению проектами</h2>
-        <div class="row">
-            <!-- Курс 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Эффективная командная работа</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Курс 2 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Управление проектами в цифровой среде</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Курс 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Изображение курса">
-                    <div class="card-body">
-                        <h5 class="card-title">Лидерство в цифровой эпохе</h5>
-                        <p class="card-text">Описание курса...</p>
-                        <a href="#" class="btn btn-primary">Узнать больше</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
