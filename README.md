@@ -16,7 +16,8 @@
 2. Создайте и активируйте виртуальное окружение: `python -m venv venv` и `source venv/bin/activate` (Linux/Mac) или `venv\Scripts\activate` (Windows).
 3. Установите зависимости: `pip install -r requirements.txt`
 4. Создайте миграции и примените их: `python manage.py makemigrations` и `python manage.py migrate`
-5. Запустите сервер: `python manage.py runserver`
-6. Перейдите по адресу [http://127.0.0.1:8000/](http://127.0.0.1:8000/) в вашем веб-браузере.
-7. Панель администрирования доступна по адресу [http://127.0.0.1:8000/admin//](http://127.0.0.1:8000/admin//)
+5. Сгенерируйте тестовые данные при необходимости `python manage.py generate_test_data`
+6. Запустите сервер: `python manage.py runserver`
+7. Перейдите по адресу [http://127.0.0.1:8000/](http://127.0.0.1:8000/) в вашем веб-браузере.
+8. Панель администрирования доступна по адресу [http://127.0.0.1:8000/admin//](http://127.0.0.1:8000/admin//)
 
