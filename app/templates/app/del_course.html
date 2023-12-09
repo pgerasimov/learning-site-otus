@@ -3,16 +3,14 @@
 
   <div class="container mt-4">
 
-        <form method="post" action="{% url 'delete_course' course.id %}">
+        <form method="post" action="{% url 'del_course' course.id %}">
             {% csrf_token %}
             <h1>Удаление курса</h1>
 
-            <p>Вы уверены, что хотите удалить курс "{{ course.title }}"?</p>
-
-            <!-- ... (дополнительная информация о курсе) -->
+            <p>Вы уверены, что хотите удалить курс <b>"{{ course.title }}"</b>?</p>
 
             <button type="submit" class="btn btn-danger">Удалить</button>
-            <a href="{% url 'index' %}" class="btn btn-secondary">Отмена</a>
+            <a href="{% url 'course_detail' pk=course.id %}"" class="btn btn-secondary">Отмена</a>
         </form>
 
     </div>

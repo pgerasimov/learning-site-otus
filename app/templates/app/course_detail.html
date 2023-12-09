@@ -20,8 +20,8 @@
                     <li><strong>Старт:</strong> {{ course.start_date }}</li>
                 </ul>
                 <a href="#" class="btn btn-primary">Записаться на курс</a>
-                <a href="#" class="btn btn-secondary">Редактировать курс</a>
-                <a href="#" class="btn btn-danger">Удалить курс</a>
+                <a href="{% url 'edit_course' pk=course.id %}" class="btn btn-secondary">Редактировать курс</a>
+                <a href="{% url 'del_course' pk=course.id %}" class="btn btn-danger">Удалить курс</a>
             </div>
         </div>
 

@@ -8,23 +8,18 @@
             <h1>Редактирование курса</h1>
 
             <div class="mb-3">
-                <label for="course_image" class="form-label">Изображение курса:</label>
-                <input type="file" class="form-control" id="course_image" name="course_image" accept="image/*">
-            </div>
-
-            <div class="mb-3">
                 <label for="course_name" class="form-label">Название курса:</label>
-                <input type="text" class="form-control" id="course_name" name="course_name" value="{{ course.name }}" required>
+                <input type="text" class="form-control" id="course_name" name="course_name" value="{{ course.title }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="course_description" class="form-label">Описание курса:</label>
-                <textarea class="form-control" id="course_description" name="course_description" rows="4" required>{{ course.description }}</textarea>
+                <textarea class="form-control" id="course_description" name="course_description" rows="4" required>{{ course.summary }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="instructor_name" class="form-label">Имя преподавателя:</label>
-                <input type="text" class="form-control" id="instructor_name" name="instructor_name" value="{{ course.instructor_name }}" required>
+                <input type="text" class="form-control" id="instructor_name" name="instructor_name" value="{{ course.teachers.all.0.user }}" required>
             </div>
 
             <div class="mb-3">
@@ -39,12 +34,12 @@
 
             <div class="mb-3">
                 <label for="photo_url" class="form-label">URL фото:</label>
-                <input type="text" class="form-control" id="photo_url" name="photo_url" value="{{ course.photo_url }}" required>
+                <input type="text" class="form-control" id="photo_url" name="photo_url" value="{{ course.image }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="course_content" class="form-label">Содержание курса:</label>
-                <textarea class="form-control" id="course_content" name="course_content" rows="6" required>{{ course.content }}</textarea>
+                <textarea class="form-control" id="course_content" name="course_content" rows="6" required>{{ course.summary }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>

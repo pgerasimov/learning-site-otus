@@ -18,3 +18,21 @@ class CourseDetailView(View):
         course = get_object_or_404(Course, pk=pk)
         context = {'course': course}
         return render(request, self.template_name, context)
+
+
+class CourseEditView(View):
+    template_name = 'app/edit_course.html'
+
+    def get(self, request, pk):
+        course = get_object_or_404(Course, pk=pk)
+        context = {'course': course}
+        return render(request, self.template_name, context)
+
+
+class CourseDeleteView(View):
+    template_name = 'app/del_course.html'
+
+    def get(self, request, pk):
+        course = get_object_or_404(Course, pk=pk)
+        context = {'course': course}
+        return render(request, self.template_name, context)
