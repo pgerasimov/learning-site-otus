@@ -1,13 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import CreateView
-from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, ListView, DetailView
 
-from .models import Course
 from .forms import CourseForm
+from .models import Course, UserProfile
 
 
 class IndexView(View):
@@ -22,7 +24,7 @@ class CourseDetailView(View):
     template_name = 'app/course_detail.html'
 
     def get(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
+        course = Course.objects.get(pk=pk)
         context = {'course': course}
         return render(request, self.template_name, context)
 
@@ -31,12 +33,12 @@ class CourseEditView(View):
     template_name = 'app/edit_course.html'
 
     def get(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
+        course = Course.objects.get(pk=pk)
         form = CourseForm(instance=course)
         return render(request, self.template_name, {'form': form, 'course': course})
 
     def post(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
+        course = Course.objects.get(pk=pk)
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
             form.save()
@@ -49,12 +51,12 @@ class CourseDeleteView(View):
     template_name = 'app/del_course.html'
 
     def get(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
+        course = Course.objects.get(pk=pk)
         context = {'course': course}
         return render(request, self.template_name, context)
 
     def post(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
+        course = Course.objects.get(pk=pk)
         course.delete()
         messages.success(request, 'Курс успешно удален')
         return redirect('index')
@@ -74,6 +76,58 @@ class CourseCreateView(View):
             messages.success(request, 'Курс успешно добавлен')
             return redirect('index')
         return render(request, self.template_name, {'form': form})
+
+
+class TeacherListView(ListView):
+    template_name = 'app/teachers_list.html'
+    model = UserProfile  # Используем UserProfile вместо Teacher
+    context_object_name = 'teachers'
+
+
+class TeacherDetailView(DetailView):
+    template_name = 'app/teacher_detail.html'
+    model = UserProfile  # Используем UserProfile вместо Teacher
+    context_object_name = 'teacher'
+
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileView(View):
+    template_name = 'app/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user_profile = UserProfile.objects.get(user=request.user)
+        context = {'user_profile': user_profile, 'authenticated': True}
+        return render(request, self.template_name, context)
+
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileEditView(View):
+    template_name = 'app/profile_edit.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            user_profile = UserProfile(user=request.user, role=UserProfile.STUDENT)
+
+        form = UserProfileForm(instance=user_profile)
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            user_profile = UserProfile(user=request.user, role=UserProfile.STUDENT)
+
+        form = UserProfileForm(request.POST, instance=user_profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+        context = {'form': form}
+        return render(request, self.template_name, context)
 
 
 class CustomLoginView(LoginView):

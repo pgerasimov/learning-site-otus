@@ -1,12 +1,8 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-
-
     <div class="container mt-4">
-
-       <h1>{{ course.title }}</h1>
-
+        <h1>{{ course.title }}</h1>
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ course.image }}" class="img-fluid" alt="Изображение курса">
@@ -21,15 +17,12 @@
                 </ul>
                 <a href="#" class="btn btn-primary">Записаться на курс</a>
                 <a href="{% url 'edit_course' pk=course.id %}" class="btn btn-secondary">Редактировать курс</a>
-                <a href="{% url 'del_course' pk=course.id %}" class="btn btn-danger">Удалить курс</a>
+                <a href="{% url 'del_course' pk=course.id %}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить курс?')">Удалить курс</a>
             </div>
         </div>
-
         <div class="mt-4">
             <h2>Содержание курса</h2>
             <p>{{ course.description }}</p>
         </div>
-
     </div>
-
 {% endblock %}

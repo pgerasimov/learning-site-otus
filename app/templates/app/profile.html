@@ -1,28 +1,32 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-       <!-- Личный кабинет (режим просмотра) -->
-       <div class="container mt-4">
+    <div class="container mt-4">
         <h2>Личный кабинет</h2>
         <div class="row">
             <div class="col-md-4 mb-4">
-                <img src="https://via.placeholder.com/300" class="img-fluid" alt="Фото профиля">
+                <img src="{{ user.profile.photo.url }}" class="img-fluid" alt="Фото профиля">
             </div>
             <div class="col-md-8">
-                <p><strong>ФИО:</strong> Иванов Иван Иванович</p>
-                <p><strong>Email адрес:</strong> ivanov@example.com</p>
-                <p><strong>Возраст:</strong> 30 лет</p>
-                <p><strong>Стаж работы:</strong> 5 лет</p>
-                <p><strong>Место работы:</strong> IT Company</p>
+                <p><strong>ФИО:</strong> {{ user.profile.full_name }}</p>
+                <p><strong>Email адрес:</strong> {{ user.email }}</p>
+                <p><strong>Возраст:</strong> {{ user.profile.age }} лет</p>
+                <p><strong>Стаж работы:</strong> {{ user.profile.experience }} лет</p>
+                <p><strong>Место работы:</strong> {{ user.profile.workplace }}</p>
                 <h3>Активные курсы:</h3>
                 <ul>
-                    <li>Начальные курсы по программированию</li>
-                    <li>Эффективная командная работа</li>
-                    <!-- Добавьте остальные курсы -->
+                    {% for course in user.profile.courses.all %}
+                        <li>{{ course.title }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
-        <a href="profile_edit.html" class="btn btn-primary">Редактировать</a>
-    </div>
+        <a href="{% url 'profile_edit' %}" class="btn btn-primary">Редактировать</a>
 
+        <!-- Кнопка выхода -->
+        <form method="post" action="{% url 'logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Выйти</button>
+        </form>
+    </div>
 {% endblock %}

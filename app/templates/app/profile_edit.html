@@ -1,38 +1,40 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-
-    <!-- Личный кабинет (режим редактирования) -->
     <div class="container mt-4">
         <h2>Личный кабинет (Редактирование)</h2>
-        <form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="photo" class="form-label">Фото профиля</label>
-                <input type="file" class="form-control" id="photo">
+                {{ form.photo }}
             </div>
             <div class="mb-3">
-                <label for="fullName" class="form-label">ФИО</label>
-                <input type="text" class="form-control" id="fullName" value="Иванов Иван Иванович">
+                <label for="full_name" class="form-label">ФИО</label>
+                {{ form.full_name }}
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email адрес</label>
-                <input type="email" class="form-control" id="email" value="ivanov@example.com">
+                {{ form.email }}
             </div>
             <div class="mb-3">
                 <label for="age" class="form-label">Возраст</label>
-                <input type="text" class="form-control" id="age" value="30 лет">
+                {{ form.age }}
             </div>
             <div class="mb-3">
                 <label for="experience" class="form-label">Стаж работы</label>
-                <input type="text" class="form-control" id="experience" value="5 лет">
+                {{ form.experience }}
             </div>
             <div class="mb-3">
                 <label for="workplace" class="form-label">Место работы</label>
-                <input type="text" class="form-control" id="workplace" value="IT Company">
+                {{ form.workplace }}
             </div>
-            <a href="profile.html" class="btn btn-secondary">Отмена</a>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Биография</label>
+                {{ form.bio }}
+            </div>
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Отмена</a>
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
         </form>
     </div>
-
 {% endblock %}

@@ -14,42 +14,48 @@
 </head>
 
 <body>
-{% if messages %}
-   <ul class="messages no-bullet">
-       {% for message in messages %}
-           <li{% if message.tags %} class="{% if message.tags == 'success' %}alert alert-success{% elif message.tags == 'error' %}alert alert-danger{% elif message.tags == 'warning' %}alert alert-warning{% elif message.tags == 'info' %}alert alert-info{% endif %}"{% endif %}>{{ message }}</li>
-       {% endfor %}
-   </ul>
-{% endif %}
+    {% if messages %}
+        <ul class="messages no-bullet">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{% if message.tags == 'success' %}alert alert-success{% elif message.tags == 'error' %}alert alert-danger{% elif message.tags == 'warning' %}alert alert-warning{% elif message.tags == 'info' %}alert alert-info{% endif %}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <!-- Навигационное меню -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid"> <!-- Заменено на container-fluid -->
-            <a class="navbar-brand" href="/">Цифровые навыки</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid"> <!-- Заменено на container-fluid -->
+        <a class="navbar-brand" href="/">Цифровые навыки</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Курсы</a>
-                    </li>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Курсы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers_list">Преподаватели</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Расписание</a>
+                </li>
+            </ul>
+           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                 {% if user.is_authenticated %}
+                 <li class="nav-item">
+                     <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                 </li>
+               {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/teachers_list">Преподаватели</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/schedule">Расписание</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Личный кабинет</a>
-                    </li>
-                </ul>
-            </div>
+                         <a class="nav-link" href="{% url 'login' %}">Личный кабинет</a>
+                     </li>
+                 {% endif %}
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Основное содержимое -->
     <div class="container mt-4">
