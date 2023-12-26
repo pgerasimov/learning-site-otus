@@ -19,21 +19,23 @@
     <!-- Секция с курсами -->
     <div class="container mt-4">
         <h2>Курсы по программированию и разработке ПО</h2>
-        <div class="row">
+       <div class="row">
             {% for course in courses %}
-                <!-- Карточка курса -->
                 <div class="col-md-4 mb-4">
                     <div class="card">
-            <img src="{{ course.image }}" class="card-img-top" alt="Изображение курса">
+                        <img src="{{ course.image }}" class="card-img-top" alt="Изображение курса">
                         <div class="card-body">
                             <h5 class="card-title">{{ course.title }}</h5>
-                            <p class="card-text">
-                                {{ course.description }}
-                            </p>
+                            <p class="card-text">{{ course.description }}</p>
                             <a href="{% url 'course_detail' pk=course.id %}" class="btn btn-primary">Подробнее</a>
                         </div>
                     </div>
                 </div>
+                {% if not forloop.last %}
+                    {% if forloop.counter|divisibleby:3 %}
+                        </div><div class="row">
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

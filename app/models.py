@@ -34,13 +34,3 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Schedule(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    day_of_week = models.CharField(max_length=10)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-
-    def __str__(self):
-        return f"{self.course} - {self.day_of_week} {self.start_time}-{self.end_time}"

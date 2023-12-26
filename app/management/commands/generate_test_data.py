@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-from app.models import UserProfile, Course, Schedule
+from app.models import UserProfile, Course
 from faker import Faker
 import random
 
 fake = Faker()
+
 
 class Command(BaseCommand):
     help = 'Generate fake data for the app'

@@ -16,7 +16,7 @@ class IndexView(View):
     template_name = 'app/main.html'
 
     def get(self, request, *args, **kwargs):
-        courses = Course.objects.all()
+        courses = Course.objects.prefetch_related('teachers', 'students').all()
         return render(request, self.template_name, {'courses': courses})
 
 
@@ -24,7 +24,17 @@ class CourseDetailView(View):
     template_name = 'app/course_detail.html'
 
     def get(self, request, pk):
-        course = Course.objects.get(pk=pk)
+        course = Course.objects.filter(pk=pk).values(
+            'id',
+            'title',
+            'description',
+            'start_date',
+            'summary',
+            'duration',
+            'image',
+            'teachers__user__username',
+        ).first()
+
         context = {'course': course}
         return render(request, self.template_name, context)
 
@@ -33,7 +43,7 @@ class CourseEditView(View):
     template_name = 'app/edit_course.html'
 
     def get(self, request, pk):
-        course = Course.objects.get(pk=pk)
+        course = Course.objects.prefetch_related('teachers', 'students').get(pk=pk)
         form = CourseForm(instance=course)
         return render(request, self.template_name, {'form': form, 'course': course})
 
@@ -80,13 +90,14 @@ class CourseCreateView(View):
 
 class TeacherListView(ListView):
     template_name = 'app/teachers_list.html'
-    model = UserProfile  # Используем UserProfile вместо Teacher
+    queryset = UserProfile.objects.select_related('user')
     context_object_name = 'teachers'
 
 
 class TeacherDetailView(DetailView):
     template_name = 'app/teacher_detail.html'
-    model = UserProfile  # Используем UserProfile вместо Teacher
+    model = UserProfile
+    queryset = UserProfile.objects.select_related('user')
     context_object_name = 'teacher'
 
 

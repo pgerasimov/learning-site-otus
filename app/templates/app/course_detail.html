@@ -1,28 +1,31 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1>{{ course.title }}</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ course.image }}" class="img-fluid" alt="Изображение курса">
-            </div>
-            <div class="col-md-6">
-                <h2>О курсе</h2>
-                <p>{{ course.summary }}</p>
-                <ul>
-                    <li><strong>Преподаватель:</strong> {{ course.teachers.all.0.user }}</li>
-                    <li><strong>Длительность:</strong> {{ course.duration }} недель</li>
-                    <li><strong>Старт:</strong> {{ course.start_date }}</li>
-                </ul>
-                <a href="#" class="btn btn-primary">Записаться на курс</a>
-                <a href="{% url 'edit_course' pk=course.id %}" class="btn btn-secondary">Редактировать курс</a>
-                <a href="{% url 'del_course' pk=course.id %}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить курс?')">Удалить курс</a>
-            </div>
+<!-- Секция с курсами -->
+<div class="container mt-4">
+    <h1>{{ course.title }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ course.image }}" class="img-fluid" alt="Изображение курса">
         </div>
-        <div class="mt-4">
-            <h2>Содержание курса</h2>
-            <p>{{ course.description }}</p>
+        <div class="col-md-6">
+            <h2>О курсе</h2>
+            <p>{{ course.summary }}</p>
+            <ul>
+                {% with teacher=course.teachers.first %}
+                    <li><strong>Преподаватель:</strong> {{ teacher.user }}</li>
+                {% endwith %}
+                <li><strong>Длительность:</strong> {{ course.duration }} недель</li>
+                <li><strong>Старт:</strong> {{ course.start_date }}</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Записаться на курс</a>
+            <a href="{% url 'edit_course' pk=course.id %}" class="btn btn-secondary">Редактировать курс</a>
+            <a href="{% url 'del_course' pk=course.id %}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить курс?')">Удалить курс</a>
         </div>
     </div>
+    <div class="mt-4">
+        <h2>Содержание курса</h2>
+        <p>{{ course.description }}</p>
+    </div>
+</div>
 {% endblock %}
