@@ -15,7 +15,7 @@
 1. Клонируйте репозиторий: `git clone https://github.com/pgerasimov/learning-site-otus.git`
 2. Создайте и активируйте виртуальное окружение: `python -m venv venv` и `source venv/bin/activate` (Linux/Mac) или `venv\Scripts\activate` (Windows).
 3. Установите зависимости: `pip install -r requirements.txt`
-4. Установите и запустите **Redis** в качестве службы: 
+4. Установите и запустите **Redis** в качестве службы
 5. Создайте миграции и примените их: `python manage.py makemigrations` и `python manage.py migrate`
 6. Сгенерируйте тестовые данные при необходимости `python manage.py generate_test_data`
 7. Запустите сервер: `python manage.py runserver`
