@@ -2,12 +2,10 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
-import time
 
 import django_rq
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import mail_admins
 from django.views import View
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
