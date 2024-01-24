@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 from mysite import settings
 from .views import IndexView, CourseDetailView, CourseEditView, CourseDeleteView, CourseCreateView, CustomLoginView, \
-    RegisterView, UserProfileView, UserProfileEditView, UserProfileEditView, TeacherListView, TeacherDetailView
+    RegisterView, UserProfileView, UserProfileEditView, UserProfileEditView, TeacherListView, TeacherDetailView, ContactView, ContactSubmitView
 
 if settings.DEBUG:
     import debug_toolbar
@@ -24,4 +24,7 @@ if settings.DEBUG:
         path('profile/', UserProfileView.as_view(), name='profile'),
         path('profile/<str:username>/', UserProfileView.as_view(), name='profile'),
         path('profile/edit/', UserProfileEditView.as_view(), name='profile_edit'),
+        path('contacts/', ContactView.as_view(), name='contacts'),
+        path('contact_submit/', ContactSubmitView.as_view(), name='contact_submit'),
+
     ]

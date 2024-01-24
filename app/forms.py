@@ -7,4 +7,8 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = '__all__'
 
-# Остальной код форм, если есть
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Имя', max_length=100)
+    email = forms.EmailField(label='Почта')
+    message = forms.CharField(label='Текст сообщения', widget=forms.Textarea)

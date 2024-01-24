@@ -1,14 +1,22 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.header import Header
+import time
+
+import django_rq
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
+from django.core.mail import mail_admins
 from django.views import View
 from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, TemplateView, FormView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.forms import UserCreationForm
 
-from .forms import CourseForm
+from .forms import CourseForm, ContactForm
 from .models import Course, UserProfile
 
 
@@ -155,3 +163,60 @@ class RegisterView(CreateView):
         response = super().form_valid(form)
         messages.success(self.request, 'Регистрация прошла успешно. Теперь вы можете войти.')
         return response
+
+
+class ContactView(TemplateView):
+    template_name = 'app/contact.html'
+
+
+class ContactSubmitView(FormView):
+    template_name = 'app/contact_submit.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('contacts')
+
+    def form_valid(self, form):
+        # Отправка писем через очередь задач
+        queue = django_rq.get_queue('default')
+
+        # Используем введенный в форме адрес электронной почты
+        user_email = form.cleaned_data['email']
+
+        # Задача для отправки на адрес из формы
+        queue.enqueue(
+            send_contact_email,
+            user_email,
+            form.cleaned_data['name'],
+            'Уважаемый {}, мы получили ваше сообщение и скоро ответим.'.format(form.cleaned_data['name']),
+            'first@example.com'
+        )
+
+        # Задача для отправки на адрес админа
+        queue.enqueue(
+            send_contact_email,
+            user_email,
+            form.cleaned_data['name'],
+            form.cleaned_data['message'],
+            'second@example.com'
+        )
+
+        messages.success(self.request, 'Сообщение успешно отправлено!')
+        return super().form_valid(form)
+
+
+def send_contact_email(sender_email, sender_name, message, recipient):
+    smtp_host = 'localhost'
+    smtp_port = 1025
+
+    server = smtplib.SMTP(smtp_host, smtp_port)
+
+    subject = 'Новое сообщение от {}'.format(sender_name)
+    body = 'Отправитель: {}\nEmail: {}\n\n{}'.format(sender_name, sender_email, message)
+
+    msg = MIMEMultipart()
+    msg['From'] = 'Наш сервис <support@our-service-email.ru>'
+    msg['To'] = recipient
+    msg['Subject'] = Header(subject, 'utf-8').encode()
+    msg.attach(MIMEText(body, 'plain'))
+
+    server.send_message(msg)
+    server.quit()
