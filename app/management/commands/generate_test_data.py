@@ -6,7 +6,6 @@ import random
 
 fake = Faker()
 
-
 class Command(BaseCommand):
     help = 'Generate fake data for the app'
 
@@ -60,6 +59,28 @@ class Command(BaseCommand):
                 role='teacher'
             )
             print(f"Created teacher: {teacher_profile}")
+
+        # Create students
+        for _ in range(10):
+            student_user = User.objects.create_user(username=fake.user_name(), password=fake.password())
+            full_name = fake.name()
+            email = fake.email()
+            age = fake.random_int(min=18, max=30)
+            experience = fake.random_int(min=1, max=4)
+            workplace = fake.company()
+            bio = fake.text()
+
+            student_profile = UserProfile.objects.create(
+                user=student_user,
+                full_name=full_name,
+                email=email,
+                age=age,
+                experience=experience,
+                workplace=workplace,
+                bio=bio,
+                role='student'
+            )
+            print(f"Created student: {student_profile}")
 
         # Create courses
         for _ in range(6):

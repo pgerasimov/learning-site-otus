@@ -1,10 +1,10 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
-
 from mysite import settings
 from .views import IndexView, CourseDetailView, CourseEditView, CourseDeleteView, CourseCreateView, CustomLoginView, \
-    RegisterView, UserProfileView, UserProfileEditView, UserProfileEditView, TeacherListView, TeacherDetailView, ContactView, ContactSubmitView
+    RegisterView, UserProfileView, UserProfileEditView, TeacherDetailView, \
+    ContactView, ContactSubmitView, CourseListView, StudentListView, TeacherListView, TeacherListAPIView
 
 if settings.DEBUG:
     import debug_toolbar
@@ -26,5 +26,7 @@ if settings.DEBUG:
         path('profile/edit/', UserProfileEditView.as_view(), name='profile_edit'),
         path('contacts/', ContactView.as_view(), name='contacts'),
         path('contact_submit/', ContactSubmitView.as_view(), name='contact_submit'),
-
+        path('api/courses/', CourseListView.as_view(), name='course_list_api'),
+        path('api/students/', StudentListView.as_view(), name='student_list_api'),
+        path('api/teachers/', TeacherListAPIView.as_view(), name='teacher_list_api'),
     ]

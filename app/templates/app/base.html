@@ -24,7 +24,7 @@
 
     <!-- Навигационное меню -->
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid"> <!-- Заменено на container-fluid -->
+    <div class="container-fluid">
         <a class="navbar-brand" href="/">Цифровые навыки</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
-                </li>
+            </li>
             </ul>
            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                  {% if user.is_authenticated %}
