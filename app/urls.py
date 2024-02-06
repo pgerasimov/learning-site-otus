@@ -1,7 +1,10 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from graphene_django.views import GraphQLView
+
 
 from mysite import settings
+from .graphql.schema import schema
 from .views import IndexView, CourseDetailView, CourseEditView, CourseDeleteView, CourseCreateView, CustomLoginView, \
     RegisterView, UserProfileView, UserProfileEditView, TeacherDetailView, \
     ContactView, ContactSubmitView, CourseListView, StudentListView, TeacherListView, TeacherListAPIView
@@ -29,4 +32,5 @@ if settings.DEBUG:
         path('api/courses/', CourseListView.as_view(), name='course_list_api'),
         path('api/students/', StudentListView.as_view(), name='student_list_api'),
         path('api/teachers/', TeacherListAPIView.as_view(), name='teacher_list_api'),
+        path('graphql/', GraphQLView.as_view(graphiql=True, schema=schema)),
     ]
