@@ -31,11 +31,9 @@ class Query(graphene.ObjectType):
         return Course.objects.all()
 
     def resolve_all_teachers(self, info):
-        # Возвращаем всех преподавателей, если они есть, иначе пустой список
         return UserProfile.objects.filter(role='teacher')
 
     def resolve_all_students(self, info):
-        # Возвращаем всех студентов, если они есть, иначе пустой список
         return UserProfile.objects.filter(role='student')
 
 
