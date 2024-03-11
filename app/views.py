@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -54,11 +54,10 @@ class IndexView(View):
 
 
 class CourseListView(View):
-    template_name = 'app/course_list.html'
-
     def get(self, request, *args, **kwargs):
         courses = Course.objects.prefetch_related('teachers', 'students').all()
-        return render(request, self.template_name, {'courses': courses})
+        serialized_courses = [{'id': course.id, 'title': course.title} for course in courses]
+        return JsonResponse(serialized_courses, safe=False)
 
 
 class StudentListView(APIView):
@@ -269,3 +268,4 @@ class ContactSubmitView(FormView):
 
         messages.success(self.request, 'Сообщение успешно отправлено!')
         return super().form_valid(form)
+

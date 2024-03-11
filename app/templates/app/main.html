@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -13,13 +14,13 @@
                 проектами. Мы создали гибкую систему обучения, которая подходит как для начинающих, так и для опытных
                 специалистов. Наши курсы предоставляют возможность получить практические навыки, необходимые для успешной
                 карьеры в современном мире информационных технологий.</p>
- </div>
+        </div>
     </div>
 
     <!-- Секция с курсами -->
     <div class="container mt-4">
         <h2>Курсы по программированию и разработке ПО</h2>
-       <div class="row">
+        <div class="row">
             {% for course in courses %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
@@ -39,7 +40,8 @@
             {% endfor %}
         </div>
     </div>
-<div>
- <a href="/create_course" class="btn btn-primary">Добавить курс</a>
-</div>
+    <div>
+        <a href="/create_course" class="btn btn-primary">Добавить курс</a>
+    </div>
+    <script src="{% static 'script.js' %}"></script>
 {% endblock %}

@@ -17,7 +17,7 @@
     {% if messages %}
         <ul class="messages no-bullet">
             {% for message in messages %}
-                <li{% if message.tags %} class="{% if message.tags == 'success' %}alert alert-success{% elif message.tags == 'error' %}alert alert-danger{% elif message.tags == 'warning' %}alert alert-warning{% elif message.tags == 'info' %}alert alert-info{% endif %}"{% endif %}>{{ message }}</li>
+                <li>{% if message.tags %} class="{% if message.tags == 'success' %}alert alert-success{% elif message.tags == 'error' %}alert alert-danger{% elif message.tags == 'warning' %}alert alert-warning{% elif message.tags == 'info' %}alert alert-info{% endif %}"{% endif %}>{{ message }}</li>
             {% endfor %}
         </ul>
     {% endif %}
